@@ -10,7 +10,7 @@ const Footer = () => {
           <a href="https://github.com/surajDahal007" target="_blank" rel="noreferrer">
             Suraj Dahal
           </a>{" "}
-          and &nbsp;<a href="/">GitHub repo</a>
+          and &nbsp;<a href="https://github.com/surajDahal007/React-OnlineStore" rel="noreferrer" target="_blank">GitHub repo</a>
         </p>
       </footer>
     </div>
