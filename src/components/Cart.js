@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Cart = () => {
+const Cart = (props) => {
   let count = 0;
   let totalQuantity = 0;
   let totalPrice = 0;
@@ -22,26 +22,44 @@ const Cart = () => {
     getProducts();
   }, []);
 
+  const deleteAllItems = () => {
+    localStorage.clear();
+    props.setCartItems(0);
+  };
+
+  const deleteOneItem = (k) => {
+    localStorage.removeItem(k);
+    props.setCartItems(localStorage.length);
+  };
+
+  const handleBuyNow = ()=>{
+    alert('This feature is comming soon.');
+  }
+
   return (
-    <div className="container my-1">
+    <div className="my-1 container">
       <h2 className="text-center my-5">Cart Items</h2>
 
       {productData.length > 0 ? (
-        <table className="table table-hover py-3">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Name</th>
+              <th scope="col" width={350}>Name</th>
               <th scope="col">Unit Price</th>
               <th scope="col">Quantity</th>
               <th scope="col">Price</th>
               <th scope="col">Actions</th>
+              <th className="col"></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {Object.keys(localStorage).map((key) => {
-              totalPrice = totalPrice + (productData[key - 1].price * localStorage.getItem(key));
-              totalQuantity = totalQuantity+ parseInt(localStorage.getItem(key));
+              totalPrice =
+                totalPrice +
+                productData[key - 1].price * localStorage.getItem(key);
+              totalQuantity =
+                totalQuantity + parseInt(localStorage.getItem(key));
 
               return (
                 <tr key={key}>
@@ -53,24 +71,44 @@ const Cart = () => {
                     ${productData[key - 1].price * localStorage.getItem(key)}
                   </td>
                   <td>
-                    <button className="btn btn-outline-danger">
+                    <button
+                      className="btn btn-outline-danger"
+                      onClick={() => {
+                        deleteOneItem(key);
+                      }}
+                    >
                       DELETE &#10006;
                     </button>
+                  </td>
+                  <td>
+                    <button className="btn btn-success" onClick={handleBuyNow}>BUY</button>
                   </td>
                 </tr>
               );
             })}
-            <tr className="fw-bold">
+            <tr className="fw-bold ">
               <td>GRAND TOTAL: </td>
               <td></td>
               <td></td>
               <td>{totalQuantity}</td>
               <td>$ {totalPrice}</td>
-              <td>
-                <button className="btn btn-outline-danger fw-bold fst-italic">
-                  Delete all Items &#10006;
-                </button>
-              </td>
+              {totalQuantity === 0 ? (
+                "No actions available"
+              ) : (
+                <>
+                  <td>
+                    <button
+                      className="btn btn-outline-danger fw-bold fst-italic"
+                      onClick={deleteAllItems}
+                    >
+                      Delete All &#10006;
+                    </button>
+                  </td>
+                  <td>
+                    <button className="btn btn-success" onClick={handleBuyNow}>Buy NOW !</button>
+                  </td>
+                </>
+              )}
             </tr>
           </tbody>
         </table>

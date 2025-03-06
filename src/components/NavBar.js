@@ -2,12 +2,12 @@ import React from 'react'
 import CartButton from './CartButton'
 import { Link } from 'react-router-dom'
 
-const NavBar = () => {
+const NavBar = (props) => {
   return (
     <nav className="navbar bg-dark navbar-expand-lg border-bottom border-body" data-bs-theme="dark">
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">
-        <h2 className='fst-italic'>OnlineStore</h2>
+        <h1 className='fst-italic'>OnlineStore</h1>
       </Link>
       <button
         className="navbar-toggler"
@@ -29,7 +29,7 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
-        <CartButton />
+        <CartButton cartItems={props.cartItems} setCartItems={props.setCartItems} />
       <div> 
       </div>
     </div>

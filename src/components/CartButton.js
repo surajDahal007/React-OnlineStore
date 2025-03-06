@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 
-const CartButton = () => {
+const CartButton = (props) => {
 
-  const [cartCount, setCartCount] = useState(0);
 
-  useEffect(()=>{
-    setCartCount(localStorage.length);
+  useEffect((props)=>{
+    props.setCartItems(localStorage.length)
 
     const handleChange = ()=>{
-      setCartCount(localStorage.length)
+      props.setCartItems(localStorage.length)
     }
 
     window.addEventListener("storage", handleChange);
@@ -17,12 +16,13 @@ const CartButton = () => {
     return () => {
       window.removeEventListener("storage", handleChange);
     };
-  },[]);
+
+  },[props.cartItems]);
 
   return (
     <div>
       <Link to="/cart" className="btn btn-warning fw-bold">
-        Cart ({cartCount}) &nbsp;
+        Cart ({props.cartItems}) &nbsp;
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
