@@ -10,7 +10,6 @@ export default function ProductList() {
       try {
         let response = await fetch("https://fakestoreapi.com/products");
         let data = await response.json();
-        console.log(data); 
         setProductData(data); 
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -25,8 +24,11 @@ export default function ProductList() {
     <div className="container mt-4">
       <h1>All Products</h1>
       <hr className="mb-3 py-4 my-2"/>
+      
+      {/* when product is set, then display pass props to card, until then loading gif  */}
       {productData.length > 0 ? (
         <div className="row g-4">
+          {/* to display individual product in a card  */}
           {productData.map((product) => (
             <div key={product.id} className="col-md-4 col-sm-6"> 
               <ProductCard

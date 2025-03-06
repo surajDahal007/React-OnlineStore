@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 
 function ProductDetails(props) {
   const [product, setProduct] = useState(null);
-  // const [cartItem, setCartItem] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const { id } = useParams(); // get id from URL
 
@@ -21,17 +20,18 @@ function ProductDetails(props) {
     fetchProduct();
   }, [id]);
 
+  // func to handle BUY button
   const handleBuyItem = () => {
     alert("Comming soon! Stay tuned.");
   };
 
+  // func to add item to cart
   const handleAddToCart = () => {
     if (quantity < 1) {
       alert("Minumum items should be 1.");
     } else {
       props.setCartItems(props.cartItems + 1);
       localStorage.setItem(product.id, quantity);
-      console.log(localStorage);
       alert("Item added to cart.");
     }
   };
@@ -43,6 +43,7 @@ function ProductDetails(props) {
 
   return (
     <div className="container my-4 py-3">
+      {/* when product is set, then only it will be displayed */}
       {product ? (
         <div className="p-5 mb-4 bg-body-tertiary border rounded-5">
           <div className="container-fluid">

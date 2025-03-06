@@ -7,12 +7,12 @@ const Cart = (props) => {
 
   const [productData, setProductData] = useState([]);
 
+  // get all products, select only those that are stored in localStorage
   useEffect(() => {
     const getProducts = async () => {
       try {
         let response = await fetch("https://fakestoreapi.com/products");
         let data = await response.json();
-        console.log(data);
         setProductData(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -22,16 +22,19 @@ const Cart = (props) => {
     getProducts();
   }, []);
 
+  // func to delete all cart items
   const deleteAllItems = () => {
     localStorage.clear();
     props.setCartItems(0);
   };
 
+  // func to delete a cart item
   const deleteOneItem = (k) => {
     localStorage.removeItem(k);
     props.setCartItems(localStorage.length);
   };
 
+  // func to respond to BUY buttons
   const handleBuyNow = ()=>{
     alert('This feature is comming soon.');
   }
@@ -54,6 +57,7 @@ const Cart = (props) => {
             </tr>
           </thead>
           <tbody >
+            {/* localStorage -> object, converts to array, returns array containing all key name  */}
             {Object.keys(localStorage).map((key) => {
               totalPrice =
                 totalPrice +

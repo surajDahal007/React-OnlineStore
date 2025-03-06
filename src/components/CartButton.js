@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 
+// destructuring props cause it showed some error
 const CartButton = ({cartItems, setCartItems}) => {
 
   useEffect(()=>{
@@ -10,9 +11,11 @@ const CartButton = ({cartItems, setCartItems}) => {
       setCartItems(localStorage.length)
     }
 
+    // storage event fires when localStorage is modified
     window.addEventListener("storage", handleChange);
 
     return () => {
+      //removes event listener when component unmounts
       window.removeEventListener("storage", handleChange);
     };
 
